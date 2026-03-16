@@ -1,0 +1,6 @@
+debian_iso_checksum   = "file:https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA512SUMS"
+debian_iso_url        = "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-13.4.0-amd64-netinst.iso"
+debian_preseed_file   = "preseed/debian-13.cfg"
+hostname              = "debian-13"
+output_dir            = "output-debian-13"
+output_file           = "debian-13.qcow2"
