@@ -17,11 +17,11 @@ To use this build you must provide additional configuration:
 - your secret key, with `SCW_SECRET_KEY`
 - project id, with `SCW_DEFAULT_PROJECT_ID`
 
-Non secret variables can be set in `custom-variables.pkr.hcl` and used adiing the option `-var-file custom-variables.pkr.hcl` to the `build` command.
+Non-secret variables can be set in `custom-variables.pkr.hcl` and used adding the option `-var-file custom-variables.pkr.hcl` to the `build` command.
 
 ## Build image
 
-Run this command first to install QEMU plugin
+Run this command first to install needed plugins
 ```
 packer init .
 ```
