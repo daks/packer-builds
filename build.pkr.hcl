@@ -4,6 +4,10 @@ packer {
       version = "~> 1"
       source  = "github.com/hashicorp/qemu"
     }
+    scaleway = {
+      version = ">= 1.0.5"
+      source  = "github.com/scaleway/scaleway"
+    }
   }
 }
 
@@ -31,6 +35,22 @@ variable "output_file" {
   type    = string
 }
 
+variable "scaleway_id" {
+  type    = string
+}
+
+variable "scaleway_commercial_type" {
+  type    = string
+}
+
+variable "scaleway_default_zone" {
+  type    = string
+}
+
+variable "ssh_private_key_file" {
+  type    = string
+}
+
 source "qemu" "debian" {
   accelerator      = "kvm"
   boot_command     = ["<esc>", "<esc><wait>", "install ", "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/${var.debian_preseed_file} ", "debian-installer=en_US ", "auto ", "locale=en_US ", "kbd-chooser/method=fr ", "netcfg/get_hostname=${var.hostname} ", "netcfg/get_domain=localdomain ", "fb=false ", "debconf/frontend=noninteractive ", "console-setup/ask_detect=false ", "console-keymaps-at/keymap=fr ", "keyboard-configuration/xkb-keymap=fr ", "net.ifnames=0 ", "<enter><wait>"]
@@ -51,6 +71,14 @@ source "qemu" "debian" {
   vm_name          = var.output_file
 }
 
+source "scaleway" "debian" {
+  image                 = var.scaleway_id
+  commercial_type       = var.scaleway_commercial_type
+  ssh_username          = "root"
+  ssh_private_key_file  = var.ssh_private_key_file
+  zone                  = var.scaleway_default_zone
+}
+
 build {
-  sources = ["qemu.debian"]
+  sources = ["qemu.debian", "scaleway.debian"]
 }
