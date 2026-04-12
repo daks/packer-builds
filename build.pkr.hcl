@@ -81,4 +81,11 @@ source "scaleway" "debian" {
 
 build {
   sources = ["qemu.debian", "scaleway.debian"]
+
+  provisioner "shell" {
+    only    = ["scaleway.debian"]
+    inline  = [
+      "apt-get update && apt-get -y upgrade"
+    ]
+  }
 }
