@@ -31,7 +31,7 @@ variable "output_dir" {
   type    = string
 }
 
-variable "output_file" {
+variable "image_name" {
   type    = string
 }
 
@@ -51,6 +51,10 @@ variable "ssh_private_key_file" {
   type    = string
 }
 
+locals {
+  timestamp = formatdate("YYYY-MM-DD-hhmm", timestamp())
+}
+
 source "qemu" "debian" {
   accelerator      = "kvm"
   boot_command     = ["<esc>", "<esc><wait>", "install ", "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/${var.debian_preseed_file} ", "debian-installer=en_US ", "auto ", "locale=en_US ", "kbd-chooser/method=fr ", "netcfg/get_hostname=${var.hostname} ", "netcfg/get_domain=localdomain ", "fb=false ", "debconf/frontend=noninteractive ", "console-setup/ask_detect=false ", "console-keymaps-at/keymap=fr ", "keyboard-configuration/xkb-keymap=fr ", "net.ifnames=0 ", "<enter><wait>"]
@@ -68,7 +72,7 @@ source "qemu" "debian" {
   ssh_port         = 22
   ssh_timeout      = "1200s"
   ssh_username     = "packer"
-  vm_name          = var.output_file
+  vm_name          = "${var.image_name}-${local.timestamp}.qcow2"
 }
 
 source "scaleway" "debian" {
@@ -77,6 +81,7 @@ source "scaleway" "debian" {
   ssh_username          = "root"
   ssh_private_key_file  = var.ssh_private_key_file
   zone                  = var.scaleway_default_zone
+  image_name            = "${var.image_name}-${local.timestamp}"
 }
 
 build {
