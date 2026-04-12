@@ -2,6 +2,23 @@
 
 Build is done starting from Debian netinst images.
 
+## Supported providers
+
+Supported providers are
+- KVM/QEMU
+- Scaleway
+
+Use the option `-only scaleway.debian` or `-only qemu.debian` to restrict which to build for.
+
+### Scaleway
+
+To use this build you must provide additional configuration:
+- your access key, you can set it with the env var `SCW_ACCESS_KEY`
+- your secret key, with `SCW_SECRET_KEY`
+- project id, with `SCW_DEFAULT_PROJECT_ID`
+
+Non secret variables can be set in `custom-variables.pkr.hcl` and used adiing the option `-var-file custom-variables.pkr.hcl` to the `build` command.
+
 ## Build image
 
 Run this command first to install QEMU plugin
