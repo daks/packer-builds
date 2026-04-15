@@ -89,8 +89,6 @@ build {
 
   provisioner "shell" {
     only    = ["scaleway.debian"]
-    inline  = [
-      "apt-get update && apt-get -y upgrade"
-    ]
+    script  = "cleanup.sh"
   }
 }
