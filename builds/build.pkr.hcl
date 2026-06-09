@@ -12,43 +12,43 @@ packer {
 }
 
 variable "debian_iso_checksum" {
-  type    = string
+  type = string
 }
 
 variable "debian_iso_url" {
-  type    = string
+  type = string
 }
 
 variable "debian_preseed_file" {
-  type    = string
+  type = string
 }
 
 variable "hostname" {
-  type    = string
+  type = string
 }
 
 variable "output_dir" {
-  type    = string
+  type = string
 }
 
 variable "image_name" {
-  type    = string
+  type = string
 }
 
 variable "scaleway_id" {
-  type    = string
+  type = string
 }
 
 variable "scaleway_commercial_type" {
-  type    = string
+  type = string
 }
 
 variable "scaleway_default_zone" {
-  type    = string
+  type = string
 }
 
 variable "ssh_private_key_file" {
-  type    = string
+  type = string
 }
 
 locals {
@@ -76,19 +76,19 @@ source "qemu" "debian" {
 }
 
 source "scaleway" "debian" {
-  image                 = var.scaleway_id
-  commercial_type       = var.scaleway_commercial_type
-  ssh_username          = "root"
-  ssh_private_key_file  = var.ssh_private_key_file
-  zone                  = var.scaleway_default_zone
-  image_name            = "${var.image_name}-${local.timestamp}"
+  image                = var.scaleway_id
+  commercial_type      = var.scaleway_commercial_type
+  ssh_username         = "root"
+  ssh_private_key_file = var.ssh_private_key_file
+  zone                 = var.scaleway_default_zone
+  image_name           = "${var.image_name}-${local.timestamp}"
 }
 
 build {
   sources = ["qemu.debian", "scaleway.debian"]
 
   provisioner "shell" {
-    only    = ["scaleway.debian"]
-    script  = "scripts/scaleway-cleanup.sh"
+    only   = ["scaleway.debian"]
+    script = "scripts/scaleway-cleanup.sh"
   }
 }
