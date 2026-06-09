@@ -17,7 +17,7 @@ To use this build you must provide additional configuration:
 - your secret key, with `SCW_SECRET_KEY`
 - project id, with `SCW_DEFAULT_PROJECT_ID`
 
-Non-secret variables can be set in `variables.auto.pkrvars.hcl` (you can copy the .template file) and they will be automatically used.
+Non-secret variables can be set in `builds/variables.auto.pkrvars.hcl` (you can copy the .template file) and they will be automatically used.
 
 ## Build image
 
@@ -28,7 +28,7 @@ packer init .
 
 Then build your image
 ```
-PACKER_LOG=1 packer build -var-file debian-13.pkrvars.hcl .
+PACKER_LOG=1 packer build -var-file vars/debian-13.pkrvars.hcl builds
 ```
 
 ## QEMU image use

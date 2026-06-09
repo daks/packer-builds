@@ -89,6 +89,6 @@ build {
 
   provisioner "shell" {
     only    = ["scaleway.debian"]
-    script  = "cleanup.sh"
+    script  = "scripts/scaleway-cleanup.sh"
   }
 }
