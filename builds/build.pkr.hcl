@@ -78,7 +78,7 @@ source "qemu" "debian" {
 source "scaleway" "debian" {
   image                = var.scaleway_id
   commercial_type      = var.scaleway_commercial_type
-  ssh_username         = "root"
+  ssh_username         = "debian"
   ssh_private_key_file = var.ssh_private_key_file
   zone                 = var.scaleway_default_zone
   image_name           = "${var.image_name}-${local.timestamp}"
